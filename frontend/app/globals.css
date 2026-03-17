@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --primary: #3b82f6;
+  --primary-foreground: #f8fafc;
+  --secondary: #64748b;
+  --accent: #8b5cf6;
+  --destructive: #ef4444;
+  --border: #334155;
+  --input: #1e293b;
+  --ring: #3b82f6;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.board-cell {
+  @apply relative border-2 border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900;
+  transition: all 0.3s ease;
+}
+
+.board-cell:hover {
+  @apply border-blue-500 shadow-lg shadow-blue-500/50;
+  transform: translateY(-2px);
+}
+
+.property-color-bar {
+  @apply absolute top-0 left-0 right-0 h-2;
+}
+
+.player-piece {
+  @apply absolute w-8 h-8 rounded-full flex items-center justify-center text-2xl;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+}
+
+.dice-container {
+  perspective: 1000px;
+}
+
+.dice {
+  @apply w-16 h-16 bg-white rounded-lg shadow-xl flex items-center justify-center text-3xl font-bold;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+}
+
+.dice.rolling {
+  animation: dice-roll 0.5s ease-in-out infinite;
+}
+
+@keyframes dice-roll {
+  0%, 100% { transform: rotate3d(1, 1, 1, 0deg); }
+  25% { transform: rotate3d(1, 1, 1, 90deg); }
+  50% { transform: rotate3d(1, 1, 1, 180deg); }
+  75% { transform: rotate3d(1, 1, 1, 270deg); }
+}
+
+.card-popup {
+  @apply fixed inset-0 flex items-center justify-center z-50;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.property-card {
+  @apply bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 shadow-2xl border-2;
+  max-width: 400px;
+  animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.money-animation {
+  position: absolute;
+  color: #4ade80;
+  font-weight: bold;
+  font-size: 1.25rem;
+  animation: floatUp 1s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.glow {
+  box-shadow: 0 0 20px currentColor;
+}
+
+.pulse-ring {
+  @apply absolute inset-0 rounded-full;
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
+}
