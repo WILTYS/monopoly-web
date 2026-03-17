@@ -33,6 +33,22 @@ export const api = {
     return response.json()
   },
 
+  async rollDice(gameId: string, playerId: string) {
+    const response = await fetch(`${API_URL}/games/${gameId}/roll?player_id=${playerId}`, {
+      method: 'POST',
+    })
+    if (!response.ok) throw new Error('Failed to roll dice')
+    return response.json()
+  },
+
+  async buyProperty(gameId: string, playerId: string, propertyId: number) {
+    const response = await fetch(`${API_URL}/games/${gameId}/buy?player_id=${playerId}&property_id=${propertyId}`, {
+      method: 'POST',
+    })
+    if (!response.ok) throw new Error('Failed to buy property')
+    return response.json()
+  },
+
   async endTurn(gameId: string, playerId: string) {
     const response = await fetch(`${API_URL}/games/${gameId}/end-turn?player_id=${playerId}`, {
       method: 'POST',
